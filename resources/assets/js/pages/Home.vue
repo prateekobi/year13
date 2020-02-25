@@ -33,21 +33,40 @@
         <div class="col-12 text-center">
           <h1 :style="`color: ${color()}`">{{ match }}% Match</h1>
         </div>
-        <h2>Similarities</h2>
-        <table class="table">
-          <thead class="thead-dark">
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">value</th>
-          </thead>
-          <tbody>
-            <tr v-for="occ in simalarity" :key="occ.title">
-              <th>{{ occ.label }}</th>
-              <th>{{ occ.description }}</th>
-              <th>{{ occ.value }}</th>
-            </tr>
-          </tbody>
-        </table>
+        <div v-if="simalarity.length" class="container">
+          <h2>Similarities</h2>
+          <table class="table">
+            <thead class="thead-dark">
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">value</th>
+            </thead>
+            <tbody>
+              <tr v-for="occ in simalarity" :key="occ.title">
+                <th>{{ occ.label }}</th>
+                <th>{{ occ.description }}</th>
+                <th>{{ occ.value }}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-if="difference.length" class="container">
+          <h2>Suggested upskills</h2>
+          <table class="table">
+            <thead class="thead-dark">
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">value</th>
+            </thead>
+            <tbody>
+              <tr v-for="occ in difference" :key="occ.title">
+                <th>{{ occ.label }}</th>
+                <th>{{ occ.description }}</th>
+                <th>{{ occ.value }}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </template>
       <template v-else-if="!match && !loading">
         <div class="col-12 text-center">Please select two Occupations from above and click Compare</div>
@@ -72,7 +91,8 @@ export default {
       occupation_1: null,
       occupation_2: null,
       match: null,
-      simalarity: null
+      simalarity: null,
+      difference: null
     };
   },
   methods: {
@@ -90,6 +110,7 @@ export default {
           this.loading = false;
           this.match = response.data.match;
           this.simalarity = response.data.simalarity;
+          this.difference = response.data.difference;
         })
         .catch(() => {
           this.loading = false;

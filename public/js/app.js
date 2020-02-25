@@ -52522,6 +52522,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52535,7 +52554,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       occupation_1: null,
       occupation_2: null,
       match: null,
-      simalarity: null
+      simalarity: null,
+      difference: null
     };
   },
 
@@ -52554,6 +52574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.loading = false;
         _this.match = response.data.match;
         _this.simalarity = response.data.simalarity;
+        _this.difference = response.data.difference;
       }).catch(function () {
         _this.loading = false;
       });
@@ -53667,25 +53688,53 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("h2", [_vm._v("Similarities")]),
-              _vm._v(" "),
-              _c("table", { staticClass: "table" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.simalarity, function(occ) {
-                    return _c("tr", { key: occ.title }, [
-                      _c("th", [_vm._v(_vm._s(occ.label))]),
+              _vm.simalarity.length
+                ? _c("div", { staticClass: "container" }, [
+                    _c("h2", [_vm._v("Similarities")]),
+                    _vm._v(" "),
+                    _c("table", { staticClass: "table" }, [
+                      _vm._m(0),
                       _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(occ.description))]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v(_vm._s(occ.value))])
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.simalarity, function(occ) {
+                          return _c("tr", { key: occ.title }, [
+                            _c("th", [_vm._v(_vm._s(occ.label))]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v(_vm._s(occ.description))]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v(_vm._s(occ.value))])
+                          ])
+                        }),
+                        0
+                      )
                     ])
-                  }),
-                  0
-                )
-              ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.difference.length
+                ? _c("div", { staticClass: "container" }, [
+                    _c("h2", [_vm._v("Suggested upskills")]),
+                    _vm._v(" "),
+                    _c("table", { staticClass: "table" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.difference, function(occ) {
+                          return _c("tr", { key: occ.title }, [
+                            _c("th", [_vm._v(_vm._s(occ.label))]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v(_vm._s(occ.description))]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v(_vm._s(occ.value))])
+                          ])
+                        }),
+                        0
+                      )
+                    ])
+                  ])
+                : _vm._e()
             ]
           : !_vm.match && !_vm.loading
           ? [
@@ -53708,6 +53757,18 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("value")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
