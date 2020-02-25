@@ -69,7 +69,7 @@ class OccupationsController extends BaseController
             'occupation_2' => $occupation_2,
             'match' => $match,
             'simalarity' => $simalarity, // return to display table in frotend
-            'difference' => $difference
+            'difference' => $difference // return to display upskill required table on front end
         ];
     }
 }
