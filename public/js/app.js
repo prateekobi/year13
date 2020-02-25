@@ -52509,38 +52509,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'home-page',
-    components: {
-        SelectOccupation: __WEBPACK_IMPORTED_MODULE_0__components_form_controls_SelectOccupation___default.a
-    },
-    data: function data() {
-        return {
-            loading: false,
-            occupation_1: null,
-            occupation_2: null,
-            match: null
-        };
-    },
+  name: "home-page",
+  components: {
+    SelectOccupation: __WEBPACK_IMPORTED_MODULE_0__components_form_controls_SelectOccupation___default.a
+  },
+  data: function data() {
+    return {
+      loading: false,
+      occupation_1: null,
+      occupation_2: null,
+      match: null,
+      simalarity: null
+    };
+  },
 
-    methods: {
-        compare: function compare() {
-            var _this = this;
+  methods: {
+    color: function color() {
+      return this.match >= 50 ? "#006400" : "#DAA520";
+    },
+    compare: function compare() {
+      var _this = this;
 
-            this.loading = true;
-            this.axios.post('/api/compare', {
-                occupation_1: this.occupation_1,
-                occupation_2: this.occupation_2
-            }).then(function (response) {
-                _this.loading = false;
-                _this.match = response.data.match;
-            }).catch(function () {
-                _this.loading = false;
-            });
-        }
+      this.loading = true;
+      this.axios.post("/api/compare", {
+        occupation_1: this.occupation_1,
+        occupation_2: this.occupation_2
+      }).then(function (response) {
+        _this.loading = false;
+        _this.match = response.data.match;
+        _this.simalarity = response.data.simalarity;
+      }).catch(function () {
+        _this.loading = false;
+      });
     }
+  }
 });
 
 /***/ }),
@@ -53627,11 +53645,7 @@ var render = function() {
                 [
                   _vm.loading
                     ? [_c("i", { staticClass: "fa fa-refresh fa-spin" })]
-                    : [
-                        _vm._v(
-                          "\n                                Compare\n                            "
-                        )
-                      ]
+                    : [_vm._v("Compare")]
                 ],
                 2
               )
@@ -53648,21 +53662,43 @@ var render = function() {
         _vm.match && !_vm.loading
           ? [
               _c("div", { staticClass: "col-12 text-center" }, [
-                _c("h1", [_vm._v(_vm._s(_vm.match) + "%")])
+                _c("h1", { style: "color: " + _vm.color() }, [
+                  _vm._v(_vm._s(_vm.match) + "% Match")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h2", [_vm._v("Similarities")]),
+              _vm._v(" "),
+              _c("table", { staticClass: "table" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.simalarity, function(occ) {
+                    return _c("tr", { key: occ.title }, [
+                      _c("th", [_vm._v(_vm._s(occ.label))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(occ.description))]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v(_vm._s(occ.value))])
+                    ])
+                  }),
+                  0
+                )
               ])
             ]
           : !_vm.match && !_vm.loading
           ? [
               _c("div", { staticClass: "col-12 text-center" }, [
                 _vm._v(
-                  "\n                Please select two Occupations from above and click Compare\n            "
+                  "Please select two Occupations from above and click Compare"
                 )
               ])
             ]
           : _vm.loading
           ? [
               _c("div", { staticClass: "col-12 text-center" }, [
-                _vm._v("\n                Please wait...\n            ")
+                _vm._v("Please wait...")
               ])
             ]
           : _vm._e()
@@ -53671,7 +53707,20 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("th", { attrs: { scope: "col" } }, [_vm._v("value")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -53767,7 +53816,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\n    -webkit-transition: opacity .5s;\n    transition: opacity .5s\n}\n.fade-enter, .fade-leave-active {\n    opacity: 0\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active,\n.fade-leave-active {\n  -webkit-transition: opacity 0.5s;\n  transition: opacity 0.5s;\n}\n.fade-enter,\n.fade-leave-active {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -53798,10 +53847,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { TopBar: __WEBPACK_IMPORTED_MODULE_0__components_TopBar___default.a }
+  components: { TopBar: __WEBPACK_IMPORTED_MODULE_0__components_TopBar___default.a }
 });
 
 /***/ }),
@@ -53951,7 +54002,7 @@ var render = function() {
     "div",
     { staticClass: "body", style: { "--brand-color": "#fbb040" } },
     [
-      _c("top-bar"),
+      _c("top-bar", { attrs: { name: "Prateek Obireddy" } }),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [_c("router-view")], 1)
     ],
