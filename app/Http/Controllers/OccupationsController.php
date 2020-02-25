@@ -43,12 +43,6 @@ class OccupationsController extends BaseController
         $occupation_1 = $this->occparser->get($request->get('occupation_1'));
         $occupation_2 = $this->occparser->get($request->get('occupation_2'));
 
-        /* get the count of occ1  */
-        /* get count of similarities b/w occ1 and occ2 */
-
-
-
-
         $simalarity = array();
 
         foreach ($occupation_1 as $key => $val) {
@@ -57,27 +51,21 @@ class OccupationsController extends BaseController
             }
         }
 
+        // get the count of occupation_1  
+        // get count of similarities between occupation_1 and occupation_2 
+
         $oc_1_count = count($occupation_1);
         $simalarity_count = count($simalarity);
 
-        /* Calucualte percentage based of simalarity */
+        // Calucualte percentage based of simalarity 
 
         $match = round(($simalarity_count / $oc_1_count) * 100);
-        \Log::debug('SIM COUNT: ' . var_export($simalarity_count, true));
-        \Log::debug('OCC1 COUNT: ' . var_export($oc_1_count, true));
-        \Log::debug(var_export($match, true));
-
-
-
-
-        // $match = 68;
-        /** IMPLEMENT COMPARISON **/
 
         return [
             'occupation_1' => $occupation_1,
             'occupation_2' => $occupation_2,
             'match' => $match,
-            'simalarity' => $simalarity,
+            'simalarity' => $simalarity, // return to display table in frotend
         ];
     }
 }
